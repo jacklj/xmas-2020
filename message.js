@@ -17,9 +17,10 @@ if (names.length === 1) {
 const messageDiv = document.getElementById('message');
 
 const textLines = [
+  '',
   `Dear ${namesString},`,
   'Happy Christmas!',
-  'Hope you have a great day.',
+  'Hope you have a great day',
   'One more thing...',
 ];
 
@@ -30,12 +31,21 @@ function displayText(text) {
 let i = 0;
 
 const timer = setInterval(function () {
-  const text = textLines[i];
-  console.log(text);
-  displayText(text);
+  const index = Math.floor(i / 5);
+  const text = textLines[index];
+
+  if (i % 5 === 0) {
+    messageDiv.style.opacity = 0;
+    displayText(text);
+  } else if (i % 5 === 1) {
+    messageDiv.style.opacity = 1;
+  } else if (i % 5 === 4) {
+    messageDiv.style.opacity = 0;
+  }
+
   i++;
 
-  if (i >= textLines.length) {
+  if (index >= textLines.length) {
     clearInterval(timer);
   }
-}, 3000);
+}, 1000);
