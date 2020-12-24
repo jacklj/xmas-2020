@@ -2,7 +2,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const to = urlParams.get('to');
 const names = to.split(',');
-console.log(names);
 
 let namesString;
 if (names.length === 1) {
@@ -10,7 +9,7 @@ if (names.length === 1) {
 } else if (names.length === 2) {
   namesString = `${names[0]} and ${names[1]}`;
 } else {
-  const allButOneNames = names.slice(0, names.length - 2);
+  const allButOneNames = names.slice(0, names.length - 1);
   const lastName = names[names.length - 1];
   namesString = `${allButOneNames.join(', ')} and ${lastName}`;
 }
