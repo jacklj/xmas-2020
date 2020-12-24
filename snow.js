@@ -11,30 +11,12 @@ var numberOfSnowflakes = 50;
 // Flag to reset the position of the snowflakes
 var resetPosition = false;
 
-// Handle accessibility
-var enableAnimations = false;
-var reduceMotionQuery = matchMedia('(prefers-reduced-motion)');
-
-// Handle animation accessibility preferences
-function setAccessibilityState() {
-  if (reduceMotionQuery.matches) {
-    enableAnimations = false;
-  } else {
-    enableAnimations = true;
-  }
-}
-setAccessibilityState();
-
-reduceMotionQuery.addListener(setAccessibilityState);
-
 //
 // It all starts here...
 //
 function setup() {
-  if (enableAnimations) {
-    window.addEventListener('DOMContentLoaded', generateSnowflakes, false);
-    window.addEventListener('resize', setResetFlag, false);
-  }
+  window.addEventListener('DOMContentLoaded', generateSnowflakes, false);
+  window.addEventListener('resize', setResetFlag, false);
 }
 setup();
 
@@ -134,11 +116,9 @@ function generateSnowflakes() {
 // Responsible for moving each snowflake by calling its update function
 //
 function moveSnowflakes() {
-  if (enableAnimations) {
-    for (var i = 0; i < snowflakes.length; i++) {
-      var snowflake = snowflakes[i];
-      snowflake.update();
-    }
+  for (var i = 0; i < snowflakes.length; i++) {
+    var snowflake = snowflakes[i];
+    snowflake.update();
   }
 
   // Reset the position of all the snowflakes to a new value
