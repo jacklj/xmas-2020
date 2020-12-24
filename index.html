@@ -9,8 +9,6 @@
       height: 100vh;
       width: 100vw;
 
-      display: flex;
-
       background: #4B79A1;  /* fallback for old browsers */
       background: -webkit-linear-gradient(to top, #283E51, #0A2342);  /* Chrome 10-25, Safari 5.1-6 */
       background: linear-gradient(to top, #283E51, #0A2342); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -36,10 +34,20 @@
     }
 
     #message {
-      margin: auto;
+      /* margin: auto; */
       color: white;
-      font-size: 40px;
+      font-size: 50px;
       font-family: 'Mountains of Christmas', cursive;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
   
@@ -47,6 +55,7 @@
     <img src="./xmas-tree.png" class="tree" />
     <div id="message"></div>
     <span class="snowflake"></span>
+
   </div>
   
   <script>
