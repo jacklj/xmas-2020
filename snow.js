@@ -23,13 +23,14 @@ setup();
 //
 // Constructor for our Snowflake object
 //
-function Snowflake({ element, speed, initialX, initialY }) {
+function Snowflake({ element, speed, initialX, initialY, xDecel = 1 }) {
   // set initial snowflake properties
   this.element = element;
   this.speed = speed;
   this.xPos = initialX;
   this.yPos = initialY;
   this.scale = 1;
+  this.xDecel = xDecel;
 
   // declare variables used for snowflake's motion
   this.counter = 0;
@@ -45,7 +46,8 @@ function Snowflake({ element, speed, initialX, initialY }) {
 Snowflake.prototype.update = function () {
   // using some trigonometry to determine our x and y position
   this.counter += this.speed / 5000;
-  this.xPos += (this.sign * this.speed * Math.cos(this.counter)) / 40;
+  this.xPos +=
+    (this.sign * this.speed * Math.cos(this.counter)) / (40 * this.xDecel);
   this.yPos += Math.sin(this.counter) / 40 + this.speed / 30;
   this.scale = 0.5 + Math.abs((10 * Math.cos(this.counter)) / 20);
 
@@ -148,4 +150,56 @@ function getPosition(offset, size) {
 //
 function setResetFlag(e) {
   resetPosition = true;
+}
+function generateFuckCovid() {
+  const snowflakeContainer = document.querySelector('.snowflake-container');
+
+  // get our browser's size
+  browserWidth = document.documentElement.clientWidth;
+  browserHeight = document.documentElement.clientHeight;
+
+  // create each individual snowflake
+  const fuckCovid = [
+    '*****  *       *   ***** *     *        *****   *****   *      *  *  * **   ',
+    '*      *       *  *      *    *        *       *     *  *      *  *  *   ** ',
+    '*      *       * *       ****         *       *       * *      *  *  *     *',
+    '*****  *       * *       *   *        *       *       * *      *  *  *     *',
+    '*      *       * *       *    *       *       *       * *      *  *  *     *',
+    '*       *     *   *      *     *       *       *     *   *    *   *  *    * ',
+    '*        *****     ***** *     *        *****   *****     ****    *  * ***  ',
+  ];
+
+  const gridSize = 10;
+  const width = fuckCovid[0].length;
+
+  const xStart = Math.floor(browserWidth / 2 - (width / 2) * gridSize);
+
+  for (let y = 0; y < fuckCovid.length; y++) {
+    const line = fuckCovid[y];
+    for (let x = 0; x < line.length; x++) {
+      const char = line[x];
+
+      if (char === '*') {
+        // 1. add new snowflake element to container element
+        const snowflakeSpan = document.createElement('span');
+        snowflakeSpan.classList.add('snowflake');
+        snowflakeContainer.appendChild(snowflakeSpan);
+
+        // 2. create snowflake controller obj
+        const initialX = xStart + x * gridSize; // getPosition(50, browserWidth);
+        const initialY = y * gridSize; // getPosition(50, browserHeight);
+        const speed = 20 + Math.random() * 1;
+        const snowflakeObject = new Snowflake({
+          element: snowflakeSpan,
+          speed,
+          initialX,
+          initialY,
+          xDecel: 40,
+        });
+
+        // 3. store snowflake controller
+        snowflakes.push(snowflakeObject);
+      }
+    }
+  }
 }
