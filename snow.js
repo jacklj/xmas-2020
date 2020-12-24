@@ -23,7 +23,7 @@ setup();
 //
 // Constructor for our Snowflake object
 //
-function Snowflake(element, speed, xPos, yPos) {
+function Snowflake({ element, speed, xPos, yPos }) {
   // set initial snowflake properties
   this.element = element;
   this.speed = speed;
@@ -74,12 +74,7 @@ function setTransform(xPos, yPos, scale, el) {
 // The function responsible for creating the snowflake
 //
 function generateSnowflakes() {
-  // get our snowflake element from the DOM and store it
-  var originalSnowflake = document.querySelector('.snowflake');
-
-  // access our snowflake element's parent container
-  var snowflakeContainer = originalSnowflake.parentNode;
-  snowflakeContainer.style.display = 'block';
+  const snowflakeContainer = document.querySelector('.snowflake-container');
 
   // get our browser's size
   browserWidth = document.documentElement.clientWidth;
@@ -87,27 +82,24 @@ function generateSnowflakes() {
 
   // create each individual snowflake
   for (var i = 0; i < numberOfSnowflakes; i++) {
-    // clone our original snowflake and add it to snowflakeContainer
-    var snowflakeClone = originalSnowflake.cloneNode(true);
-    snowflakeContainer.appendChild(snowflakeClone);
+    // 1. add new snowflake element to container element
+    const snowflakeSpan = document.createElement('span');
+    snowflakeSpan.classList.add('snowflake');
+    snowflakeContainer.appendChild(snowflakeSpan);
 
-    // set our snowflake's initial position and related properties
-    var initialXPos = getPosition(50, browserWidth);
-    var initialYPos = getPosition(50, browserHeight);
-    var speed = 5 + Math.random() * 40;
-
-    // create our Snowflake object
-    var snowflakeObject = new Snowflake(
-      snowflakeClone,
+    // 2. create snowflake controller obj
+    const initialXPos = getPosition(50, browserWidth);
+    const initialYPos = getPosition(50, browserHeight);
+    const speed = 5 + Math.random() * 40;
+    const snowflakeObject = new Snowflake({
+      element: snowflakeSpan,
       speed,
-      initialXPos,
-      initialYPos,
-    );
+      xPos: initialXPos,
+      yPos: initialYPos,
+    });
+
     snowflakes.push(snowflakeObject);
   }
-
-  // remove the original snowflake because we no longer need it visible
-  snowflakeContainer.removeChild(originalSnowflake);
 
   moveSnowflakes();
 }
