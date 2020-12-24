@@ -32,10 +32,15 @@ let i = 0;
 
 const timer = setInterval(function () {
   const index = Math.floor(i / 5);
-  const text = textLines[index];
+
+  if (index >= textLines.length) {
+    clearInterval(timer);
+    return;
+  }
 
   if (i % 5 === 0) {
     messageDiv.style.opacity = 0;
+    const text = textLines[index];
     displayText(text);
   } else if (i % 5 === 1) {
     messageDiv.style.opacity = 1;
@@ -44,8 +49,4 @@ const timer = setInterval(function () {
   }
 
   i++;
-
-  if (index >= textLines.length) {
-    clearInterval(timer);
-  }
 }, 1000);
