@@ -1,15 +1,15 @@
 // Array to store our Snowflake objects
-var snowflakes = [];
+let snowflakes = [];
 
 // Global variables to store our browser's window size
-var browserWidth;
-var browserHeight;
+let browserWidth;
+let browserHeight;
 
 // Specify the number of snowflakes you want visible
-var numberOfSnowflakes = 50;
+let numberOfSnowflakes = 50;
 
 // Flag to reset the position of the snowflakes
-var resetPosition = false;
+let resetPosition = false;
 
 //
 // It all starts here...
@@ -83,7 +83,7 @@ function generateSnowflakes() {
   browserHeight = document.documentElement.clientHeight;
 
   // create each individual snowflake
-  for (var i = 0; i < numberOfSnowflakes; i++) {
+  for (let i = 0; i < numberOfSnowflakes; i++) {
     // 1. add new snowflake element to container element
     const snowflakeSpan = document.createElement('span');
     snowflakeSpan.classList.add('snowflake');
@@ -109,8 +109,8 @@ function generateSnowflakes() {
 // Responsible for moving each snowflake by calling its update function
 //
 function moveSnowflakes() {
-  for (var i = 0; i < snowflakes.length; i++) {
-    var snowflake = snowflakes[i];
+  for (let i = 0; i < snowflakes.length; i++) {
+    let snowflake = snowflakes[i];
     snowflake.update();
   }
 
@@ -119,8 +119,8 @@ function moveSnowflakes() {
     browserWidth = document.documentElement.clientWidth;
     browserHeight = document.documentElement.clientHeight;
 
-    for (var i = 0; i < snowflakes.length; i++) {
-      var snowflake = snowflakes[i];
+    for (let i = 0; i < snowflakes.length; i++) {
+      let snowflake = snowflakes[i];
 
       snowflake.xPos = getPosition(50, browserWidth);
       snowflake.yPos = getPosition(50, browserHeight);
@@ -206,7 +206,7 @@ function generateFuckCovid() {
   }
 }
 
-// get query params
+// Run text timer
 const urlParams = new URLSearchParams(window.location.search);
 const to = urlParams.get('to');
 const names = to.split(',');
