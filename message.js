@@ -22,6 +22,10 @@ const textLines = [
   'Happy Christmas!',
   'Hope you have a great day',
   'One more thing...',
+  'Let me say',
+  'Without hope or agenda',
+  "just because it's Christmas",
+  'and at Christmas you tell the truth:',
 ];
 
 function displayText(text) {
