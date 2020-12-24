@@ -15,7 +15,7 @@ var resetPosition = false;
 // It all starts here...
 //
 function setup() {
-  window.addEventListener('DOMContentLoaded', generateSnowflakes, false);
+  window.addEventListener('DOMContentLoaded', startSnowing, false);
   window.addEventListener('resize', setResetFlag, false);
 }
 setup();
@@ -23,12 +23,12 @@ setup();
 //
 // Constructor for our Snowflake object
 //
-function Snowflake({ element, speed, xPos, yPos }) {
+function Snowflake({ element, speed, initialX, initialY }) {
   // set initial snowflake properties
   this.element = element;
   this.speed = speed;
-  this.xPos = xPos;
-  this.yPos = yPos;
+  this.xPos = initialX;
+  this.yPos = initialY;
   this.scale = 1;
 
   // declare variables used for snowflake's motion
@@ -50,7 +50,7 @@ Snowflake.prototype.update = function () {
   this.scale = 0.5 + Math.abs((10 * Math.cos(this.counter)) / 20);
 
   // setting our snowflake's position
-  setTransform(
+  setSnowflakePosition(
     Math.round(this.xPos),
     Math.round(this.yPos),
     this.scale,
@@ -66,7 +66,7 @@ Snowflake.prototype.update = function () {
 //
 // A performant way to set your snowflake's position and size
 //
-function setTransform(xPos, yPos, scale, el) {
+function setSnowflakePosition(xPos, yPos, scale, el) {
   el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0) scale(${scale}, ${scale})`;
 }
 
@@ -88,20 +88,19 @@ function generateSnowflakes() {
     snowflakeContainer.appendChild(snowflakeSpan);
 
     // 2. create snowflake controller obj
-    const initialXPos = getPosition(50, browserWidth);
-    const initialYPos = getPosition(50, browserHeight);
+    const initialX = getPosition(50, browserWidth);
+    const initialY = getPosition(50, browserHeight);
     const speed = 5 + Math.random() * 40;
     const snowflakeObject = new Snowflake({
       element: snowflakeSpan,
       speed,
-      xPos: initialXPos,
-      yPos: initialYPos,
+      initialX,
+      initialY,
     });
 
+    // 3. store snowflake controller
     snowflakes.push(snowflakeObject);
   }
-
-  moveSnowflakes();
 }
 
 //
@@ -129,6 +128,12 @@ function moveSnowflakes() {
   }
 
   requestAnimationFrame(moveSnowflakes);
+}
+
+function startSnowing() {
+  generateSnowflakes();
+
+  moveSnowflakes();
 }
 
 //
