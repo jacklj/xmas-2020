@@ -151,6 +151,7 @@ function getPosition(offset, size) {
 function setResetFlag(e) {
   resetPosition = true;
 }
+
 function generateFuckCovid() {
   const snowflakeContainer = document.querySelector('.snowflake-container');
 
@@ -160,19 +161,20 @@ function generateFuckCovid() {
 
   // create each individual snowflake
   const fuckCovid = [
-    '*****  *       *   ***** *     *        *****   *****   *      *  *  * **   ',
-    '*      *       *  *      *    *        *       *     *  *      *  *  *   ** ',
-    '*      *       * *       ****         *       *       * *      *  *  *     *',
-    '*****  *       * *       *   *        *       *       * *      *  *  *     *',
-    '*      *       * *       *    *       *       *       * *      *  *  *     *',
-    '*       *     *   *      *     *       *       *     *   *    *   *  *    * ',
-    '*        *****     ***** *     *        *****   *****     ****    *  * ***  ',
+    '*****  *       *    *****  *     *        *****   *****   *       *  *  * **   ',
+    '*      *       *   *       *    *        *       *     *  *       *  *  *   ** ',
+    '*      *       *  *        ****         *       *       * *       *  *  *     *',
+    '*****  *       *  *        *   *        *       *       * *       *  *  *     *',
+    '*      *       *  *        *    *       *       *       *  *     *   *  *     *',
+    '*       *     *    *       *     *       *       *     *    *   *    *  *    * ',
+    '*        *****      *****  *     *        *****   *****      ***     *  * ***  ',
   ];
 
-  const gridSize = 10;
   const width = fuckCovid[0].length;
+  const gridSize = browserWidth / (width * 1.4);
 
   const xStart = Math.floor(browserWidth / 2 - (width / 2) * gridSize);
+  const yStart = -1 * fuckCovid.length * gridSize;
 
   for (let y = 0; y < fuckCovid.length; y++) {
     const line = fuckCovid[y];
@@ -187,14 +189,14 @@ function generateFuckCovid() {
 
         // 2. create snowflake controller obj
         const initialX = xStart + x * gridSize; // getPosition(50, browserWidth);
-        const initialY = y * gridSize; // getPosition(50, browserHeight);
+        const initialY = yStart + y * gridSize; // getPosition(50, browserHeight);
         const speed = 20 + Math.random() * 1;
         const snowflakeObject = new Snowflake({
           element: snowflakeSpan,
           speed,
           initialX,
           initialY,
-          xDecel: 40,
+          xDecel: 50,
         });
 
         // 3. store snowflake controller
@@ -203,3 +205,61 @@ function generateFuckCovid() {
     }
   }
 }
+
+// get query params
+const urlParams = new URLSearchParams(window.location.search);
+const to = urlParams.get('to');
+const names = to.split(',');
+
+let namesString;
+if (names.length === 1) {
+  namesString = names[0];
+} else if (names.length === 2) {
+  namesString = `${names[0]} and ${names[1]}`;
+} else {
+  const allButOneNames = names.slice(0, names.length - 1);
+  const lastName = names[names.length - 1];
+  namesString = `${allButOneNames.join(', ')} and ${lastName}`;
+}
+
+const messageDiv = document.getElementById('message');
+
+const textLines = [
+  '',
+  `Dear ${namesString},`,
+  'Happy Christmas!',
+  'Hope you have a great day',
+  'One more thing...',
+  'Let me say',
+  'Without hope or agenda',
+  "just because it's Christmas",
+  '(and at Christmas you tell the truth)',
+];
+
+function displayText(text) {
+  messageDiv.innerText = text;
+}
+
+let i = 0;
+
+const timer = setInterval(function () {
+  const index = Math.floor(i / 5);
+
+  if (index >= textLines.length) {
+    generateFuckCovid();
+    clearInterval(timer);
+    return;
+  }
+
+  if (i % 5 === 0) {
+    messageDiv.style.opacity = 0;
+    const text = textLines[index];
+    displayText(text);
+  } else if (i % 5 === 1) {
+    messageDiv.style.opacity = 1;
+  } else if (i % 5 === 4) {
+    messageDiv.style.opacity = 0;
+  }
+
+  i++;
+}, 1000);
