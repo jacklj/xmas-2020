@@ -25,7 +25,7 @@ const textLines = [
   'Let me say',
   'Without hope or agenda',
   "just because it's Christmas",
-  'and at Christmas you tell the truth:',
+  '(and at Christmas you tell the truth)',
 ];
 
 function displayText(text) {
