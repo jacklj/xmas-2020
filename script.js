@@ -96,8 +96,8 @@ function generateSnowflakes() {
   const snowflakeContainer = document.querySelector('.snowflake-container');
 
   // get our browser's size
-  browserWidth = document.documentElement.clientWidth;
-  browserHeight = document.documentElement.clientHeight;
+  browserWidth = window.innerWidth;
+  browserHeight = window.innerHeight;
 
   // create each individual snowflake
   for (let i = 0; i < numberOfSnowflakes; i++) {
@@ -133,8 +133,8 @@ function moveSnowflakes() {
 
   // Reset the position of all the snowflakes to a new value
   if (resetPosition) {
-    browserWidth = document.documentElement.clientWidth;
-    browserHeight = document.documentElement.clientHeight;
+    browserWidth = window.innerWidth;
+    browserHeight = window.innerHeight;
 
     for (let i = 0; i < snowflakes.length; i++) {
       let snowflake = snowflakes[i];
@@ -173,8 +173,8 @@ function generateFuckCovid() {
   const snowflakeContainer = document.querySelector('.snowflake-container');
 
   // get our browser's size
-  browserWidth = document.documentElement.clientWidth;
-  browserHeight = document.documentElement.clientHeight;
+  browserWidth = window.innerWidth;
+  browserHeight = window.innerHeight;
 
   // create each individual snowflake
   const fuckCovid = [
