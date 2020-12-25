@@ -5,6 +5,16 @@ body {
   color: white;
 
   background: #4b79a1; /* fallback for old browsers */
+}
+
+.snowflake-container {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100vh;
+  width: 100vw;
+
+  background: #4b79a1; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to top,
     #283e51,
@@ -16,14 +26,6 @@ body {
     #0a2342
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: -olinear-gradient(to top, #283e51, #0a2342);
-}
-
-.snowflake-container {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  height: 100vh;
-  width: 100vw;
 }
 
 .snowflake {
