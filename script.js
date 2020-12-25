@@ -284,6 +284,7 @@ function startTextSequence() {
     const index = Math.floor(i / 5);
 
     if (index >= textLines.length) {
+      displayText('');
       generateFuckCovid();
       clearInterval(timer);
       return;
@@ -291,9 +292,10 @@ function startTextSequence() {
 
     if (i % 5 === 0) {
       messageDiv.style.opacity = 0;
+      displayText('');
+    } else if (i % 5 === 1) {
       const text = textLines[index];
       displayText(text);
-    } else if (i % 5 === 1) {
       messageDiv.style.opacity = 1;
     } else if (i % 5 === 4) {
       messageDiv.style.opacity = 0;
