@@ -227,10 +227,12 @@ function generateFuckCovid() {
 // Run text timer
 const urlParams = new URLSearchParams(window.location.search);
 const to = urlParams.get('to');
-const names = to.split(',');
+const names = to && to.split(',');
 
 let namesString;
-if (names.length === 1) {
+if (!names || names.length === 0) {
+  namesString = undefined;
+} else if (names.length === 1) {
   namesString = names[0];
 } else if (names.length === 2) {
   namesString = `${names[0]} and ${names[1]}`;
@@ -244,7 +246,7 @@ const messageDiv = document.getElementById('message');
 
 const textLines = [
   '',
-  `Dear ${namesString},`,
+  namesString ? `Dear ${namesString},` : 'Hello',
   'Happy Christmas!',
   'Hope you have a great day',
   'One more thing...',
