@@ -213,7 +213,7 @@ function generateFuckCovid() {
           speed,
           initialX,
           initialY,
-          xDecel: 50,
+          xDecel: 60,
           loop: false,
         });
 
