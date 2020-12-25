@@ -76,10 +76,14 @@ Snowflake.prototype.update = function () {
       this.yPos = -50;
     } else {
       // delete snowflake
-      this.deleted = true;
-      this.element.remove();
+      this.delete();
     }
   }
+};
+
+Snowflake.prototype.delete = function () {
+  this.deleted = true;
+  this.element.remove();
 };
 
 //
@@ -132,15 +136,28 @@ function moveSnowflakes() {
   }
 
   // Reset the position of all the snowflakes to a new value
+  // N.B. if they're 'fuck covid' snowflakes, delete and start 'fuck covid' again
   if (resetPosition) {
     browserWidth = window.innerWidth;
     browserHeight = window.innerHeight;
 
+    let wereAnyCovidSnowflakesDeleted = false;
+
     for (let i = 0; i < snowflakes.length; i++) {
       let snowflake = snowflakes[i];
 
-      snowflake.xPos = getPosition(50, browserWidth);
-      snowflake.yPos = getPosition(50, browserHeight);
+      if (!snowflake.loop) {
+        // it's a covid snowflake
+        snowflake.delete();
+        wereAnyCovidSnowflakesDeleted = true;
+      } else {
+        snowflake.xPos = getPosition(50, browserWidth);
+        snowflake.yPos = getPosition(50, browserHeight);
+      }
+    }
+
+    if (wereAnyCovidSnowflakesDeleted) {
+      generateFuckCovid();
     }
 
     resetPosition = false;
