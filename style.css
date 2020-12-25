@@ -65,12 +65,28 @@ body {
   position: absolute;
 
   top: 30px;
-  right: 30px;
+  right: 0;
+
+  padding-right: 30px;
 
   font-size: 20px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  width: 100vw;
 }
 
-.linkContainer a {
+.divider {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.linkContainer a,
+.linkContainer a:link,
+.linkContainer a:active,
+.linkContainer a:visited {
+  color: white; /* must be explicit or webkit will override */
   text-decoration: underline;
   cursor: pointer;
 }

@@ -11,6 +11,8 @@ let numberOfSnowflakes = 50;
 // Flag to reset the position of the snowflakes
 let resetPosition = false;
 
+let stop = false;
+
 function setup() {
   window.addEventListener('DOMContentLoaded', startSnowing, false);
   window.addEventListener('resize', setResetFlag, false);
@@ -124,6 +126,11 @@ function generateSnowflakes() {
 // Responsible for moving each snowflake by calling its update function
 //
 function moveSnowflakes() {
+  if (stop) {
+    stop = false;
+    return;
+  }
+
   for (let i = 0; i < snowflakes.length; i++) {
     let snowflake = snowflakes[i];
     snowflake.update();
@@ -298,6 +305,18 @@ function displayReplayAndFeedbackLinks() {
   replayLink.onclick = function (e) {
     e.preventDefault();
     console.log('play again');
+
+    // stop snowflake animation loop
+    stop = true;
+
+    // delete all snowflakes
+    snowflakes = [];
+
+    // start snowflake animation again
+    startSnowing();
+
+    // start text animation again
+    startTextSequence();
   };
 
   const feedbackLink = document.createElement('a');
@@ -305,7 +324,8 @@ function displayReplayAndFeedbackLinks() {
   feedbackLink.href = 'mailto:jackvlj@gmail.com?subject=Xmas 2020';
 
   const divider = document.createElement('div');
-  divider.innerText = ' | ';
+  divider.classList.add('divider');
+  divider.innerText = '|';
 
   container.appendChild(replayLink);
   container.appendChild(divider);
