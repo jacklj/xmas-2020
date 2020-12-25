@@ -90,3 +90,20 @@ body {
   text-decoration: underline;
   cursor: pointer;
 }
+
+.start-button {
+  font-size: 30px;
+  color: white; /* must be explicit or webkit will override */
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  padding: 5px 30px 5px 30px;
+
+  background-color: transparent;
+
+  border: 2px solid white;
+  border-radius: 15px;
+
+  font-family: 'Mountains of Christmas', cursive;
+}

@@ -16,8 +16,14 @@
 <body>
   <div class="snowflake-container">
     <img src="./xmas-tree.png" class="tree" />
-    <div id="message"></div>
+    <div id="message">
+      <button class="start-button" onclick="startTextSequence()">Start</button>
+    </div>
   </div>
+
+  <audio id="audio">
+    <source src="./xmasJingle.mp3" type="audio/mpeg">
+  </audio>
 
   <script src="./script.js" defer></script>
 </body>

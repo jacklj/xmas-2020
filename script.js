@@ -19,6 +19,7 @@ function setup() {
 }
 setup();
 
+const audioPlayer = document.getElementById('audio');
 function Snowflake({
   element,
   speed,
@@ -168,6 +169,7 @@ function moveSnowflakes() {
 }
 
 function startSnowing() {
+  console.log('start snowing!');
   generateSnowflakes();
 
   moveSnowflakes();
@@ -282,7 +284,6 @@ const textLines = [
   '(and at Christmas you tell the truth)',
   '',
   '',
-  '',
   fromNamesString ? `From ${fromNamesString}` : '',
 ];
 
@@ -314,6 +315,10 @@ function displayReplayAndFeedbackLinks() {
     // delete displayed text
     displayText('');
 
+    // stop music
+    audioPlayer.currentTime = 0;
+    audioPlayer.pause();
+
     // start snowflake animation again
     startSnowing();
 
@@ -340,6 +345,8 @@ function displayReplayAndFeedbackLinks() {
 }
 
 function startTextSequence() {
+  audioPlayer.play();
+
   let i = 0;
 
   timer = setInterval(function () {
@@ -377,4 +384,4 @@ function startTextSequence() {
 }
 
 // make sure no flash of text without correct font
-document.fonts.load("40px 'Mountains of Christmas'").then(startTextSequence);
+// document.fonts.load("40px 'Mountains of Christmas'").then(startTextSequence);
