@@ -284,6 +284,7 @@ const textLines = [
   '(and at Christmas you tell the truth)',
   '',
   '',
+  '',
   fromNamesString ? `From ${fromNamesString}` : '',
 ];
 
