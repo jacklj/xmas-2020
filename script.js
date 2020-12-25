@@ -289,6 +289,31 @@ function displayText(text) {
 
 let timer;
 
+function displayReplayAndFeedbackLinks() {
+  const container = document.createElement('div');
+  container.classList.add('linkContainer');
+
+  const replayLink = document.createElement('a');
+  replayLink.innerHTML = 'Play again';
+  replayLink.onclick = function (e) {
+    e.preventDefault();
+    console.log('play again');
+  };
+
+  const feedbackLink = document.createElement('a');
+  feedbackLink.innerHTML = 'Send feedback';
+  feedbackLink.href = 'mailto:jackvlj@gmail.com?subject=Xmas 2020';
+
+  const divider = document.createElement('div');
+  divider.innerText = ' | ';
+
+  container.appendChild(replayLink);
+  container.appendChild(divider);
+  container.appendChild(feedbackLink);
+
+  messageDiv.appendChild(container);
+}
+
 function startTextSequence() {
   let i = 0;
 
@@ -304,6 +329,9 @@ function startTextSequence() {
 
     if (index >= textLines.length) {
       clearInterval(timer);
+      setTimeout(function () {
+        displayReplayAndFeedbackLinks();
+      }, 4000);
       return;
     }
 
