@@ -283,8 +283,6 @@ const textLines = [
   '',
   '',
   '',
-  '',
-  '',
   fromNamesString ? `From ${fromNamesString}` : '',
 ];
 
