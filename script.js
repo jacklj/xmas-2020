@@ -1,28 +1,22 @@
-// Array to store our Snowflake objects
+// Snowflake animation code adapted from https://www.kirupa.com/html5/the_falling_snow_effect.htm
+
+// Array to store Snowflake objects
 let snowflakes = [];
 
-// Global variables to store our browser's window size
 let browserWidth;
 let browserHeight;
 
-// Specify the number of snowflakes you want visible
 let numberOfSnowflakes = 50;
 
 // Flag to reset the position of the snowflakes
 let resetPosition = false;
 
-//
-// It all starts here...
-//
 function setup() {
   window.addEventListener('DOMContentLoaded', startSnowing, false);
   window.addEventListener('resize', setResetFlag, false);
 }
 setup();
 
-//
-// Constructor for our Snowflake object
-//
 function Snowflake({
   element,
   speed,
@@ -284,9 +278,6 @@ const textLines = [
   '',
   '',
   '',
-  '',
-  '',
-  '',
   fromNamesString ? `From ${fromNamesString}` : '',
 ];
 
@@ -305,7 +296,7 @@ function startTextSequence() {
     const index = Math.floor(i / 5);
 
     if (i === 45) {
-      // only once
+      // only once (hence why '===' not gte)
       generateFuckCovid();
       i++;
       return;
@@ -323,7 +314,8 @@ function startTextSequence() {
       const text = textLines[index];
       displayText(text);
       messageDiv.style.opacity = 1;
-    } else if (i % 5 === 4) {
+    } else if (i % 5 === 4 && index < textLines.length - 1) {
+      // dont hide the final 'from' message
       messageDiv.style.opacity = 0;
     }
 
