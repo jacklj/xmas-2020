@@ -363,7 +363,7 @@ function startTextSequence() {
       clearInterval(timer);
       setTimeout(function () {
         displayReplayAndFeedbackLinks();
-      }, 4000);
+      }, 3000);
       return;
     }
 
@@ -380,7 +380,7 @@ function startTextSequence() {
     }
 
     i++;
-  }, 1000);
+  }, 800);
 }
 
 // make sure no flash of text without correct font
