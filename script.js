@@ -241,10 +241,6 @@ function generateFuckCovid() {
   }
 }
 
-document.fonts
-  .load("40px 'Mountains of Christmas'")
-  .then(() => console.log('font loaded!!!'));
-
 // Run text timer
 const urlParams = new URLSearchParams(window.location.search);
 const to = urlParams.get('to');
@@ -307,4 +303,5 @@ function startTextSequence() {
   }, 1000);
 }
 
-startTextSequence();
+// make sure no flash of text without correct font
+document.fonts.load("40px 'Mountains of Christmas'").then(startTextSequence);
