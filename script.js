@@ -281,26 +281,30 @@ function displayText(text) {
   messageDiv.innerText = text;
 }
 
-let i = 0;
+function startTextSequence() {
+  let i = 0;
 
-const timer = setInterval(function () {
-  const index = Math.floor(i / 5);
+  const timer = setInterval(function () {
+    const index = Math.floor(i / 5);
 
-  if (index >= textLines.length) {
-    generateFuckCovid();
-    clearInterval(timer);
-    return;
-  }
+    if (index >= textLines.length) {
+      generateFuckCovid();
+      clearInterval(timer);
+      return;
+    }
 
-  if (i % 5 === 0) {
-    messageDiv.style.opacity = 0;
-    const text = textLines[index];
-    displayText(text);
-  } else if (i % 5 === 1) {
-    messageDiv.style.opacity = 1;
-  } else if (i % 5 === 4) {
-    messageDiv.style.opacity = 0;
-  }
+    if (i % 5 === 0) {
+      messageDiv.style.opacity = 0;
+      const text = textLines[index];
+      displayText(text);
+    } else if (i % 5 === 1) {
+      messageDiv.style.opacity = 1;
+    } else if (i % 5 === 4) {
+      messageDiv.style.opacity = 0;
+    }
 
-  i++;
-}, 1000);
+    i++;
+  }, 1000);
+}
+
+startTextSequence();
