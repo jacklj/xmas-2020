@@ -3,8 +3,6 @@
 body {
   font-family: 'Mountains of Christmas', cursive;
   color: white;
-
-  background: #4b79a1; /* fallback for old browsers */
 }
 
 .snowflake-container {
