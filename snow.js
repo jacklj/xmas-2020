@@ -23,7 +23,14 @@ setup();
 //
 // Constructor for our Snowflake object
 //
-function Snowflake({ element, speed, initialX, initialY, xDecel = 1 }) {
+function Snowflake({
+  element,
+  speed,
+  initialX,
+  initialY,
+  xDecel = 1,
+  loop = true,
+}) {
   // set initial snowflake properties
   this.element = element;
   this.speed = speed;
@@ -31,6 +38,7 @@ function Snowflake({ element, speed, initialX, initialY, xDecel = 1 }) {
   this.yPos = initialY;
   this.scale = 1;
   this.xDecel = xDecel;
+  this.loop = loop;
 
   // declare variables used for snowflake's motion
   this.counter = 0;
@@ -44,6 +52,9 @@ function Snowflake({ element, speed, initialX, initialY, xDecel = 1 }) {
 // The function responsible for actually moving our snowflake
 //
 Snowflake.prototype.update = function () {
+  if (this.deleted) {
+    return;
+  }
   // using some trigonometry to determine our x and y position
   this.counter += this.speed / 5000;
   this.xPos +=
@@ -61,7 +72,13 @@ Snowflake.prototype.update = function () {
 
   // if snowflake goes below the browser window, move it back to the top
   if (this.yPos > browserHeight) {
-    this.yPos = -50;
+    if (this.loop) {
+      this.yPos = -50;
+    } else {
+      // delete snowflake
+      this.deleted = true;
+      this.element.remove();
+    }
   }
 };
 
@@ -197,6 +214,7 @@ function generateFuckCovid() {
           initialX,
           initialY,
           xDecel: 50,
+          loop: false,
         });
 
         // 3. store snowflake controller
