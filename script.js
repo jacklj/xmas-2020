@@ -241,7 +241,7 @@ function generateFuckCovid() {
   }
 }
 
-function renderNames(namesList) {
+function renderNames(names) {
   let namesString;
   if (!names || names.length === 0) {
     namesString = undefined;
@@ -261,14 +261,17 @@ function renderNames(namesList) {
 // Run text timer
 const urlParams = new URLSearchParams(window.location.search);
 const to = urlParams.get('to');
+const from = urlParams.get('from');
 
-const names = to && to.split(',');
+const toNames = to && to.split(',');
+const fromNames = from && from.split(',');
 
-const namesString = renderNames(names);
+const toNamesString = renderNames(toNames);
+const fromNamesString = renderNames(fromNames);
 
 const textLines = [
   '',
-  namesString ? `Dear ${namesString},` : 'Hello',
+  toNamesString ? `Dear ${toNamesString},` : 'Hello',
   'Happy Christmas!',
   'Hope you have a great day',
   'One more thing...',
@@ -276,6 +279,15 @@ const textLines = [
   'Without hope or agenda',
   "just because it's Christmas",
   '(and at Christmas you tell the truth)',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  fromNamesString ? `From ${fromNamesString}` : '',
 ];
 
 const messageDiv = document.getElementById('message');
@@ -284,15 +296,22 @@ function displayText(text) {
   messageDiv.innerText = text;
 }
 
+let timer;
+
 function startTextSequence() {
   let i = 0;
 
-  const timer = setInterval(function () {
+  timer = setInterval(function () {
     const index = Math.floor(i / 5);
 
-    if (index >= textLines.length) {
-      displayText('');
+    if (i === 45) {
+      // only once
       generateFuckCovid();
+      i++;
+      return;
+    }
+
+    if (index >= textLines.length) {
       clearInterval(timer);
       return;
     }
