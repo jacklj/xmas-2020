@@ -317,6 +317,9 @@ function displayReplayAndFeedbackLinks() {
 
     // start text animation again
     startTextSequence();
+
+    // remove these buttons
+    container.remove();
   };
 
   const feedbackLink = document.createElement('a');
