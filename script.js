@@ -310,6 +310,7 @@ function displayReplayAndFeedbackLinks() {
     stop = true;
 
     // delete all snowflakes
+    snowflakes.forEach((flake) => flake.element.remove());
     snowflakes = [];
 
     // start snowflake animation again
